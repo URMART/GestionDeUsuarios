@@ -1,0 +1,42 @@
+{% extends 'territorio/base.html' %}
+
+{% block body %}
+<h1>ACTIVIDADES</h1>
+
+<a class="btn btn-primary" href="{% url 'territorio:crear_actividad' %}">Nueva Actividad</a><br/><br/>
+{% if datos %}
+    <table border="1" width="100%" class="table">
+        <thead>
+            <tr>
+                <td>MONITORIA</td>
+                <td>ACTIVIDAD</td>
+                <td>OBSERVACIONES</td>
+                <td>FECHA</td>
+                <td>EDITAR</td>
+                <td>ELIMINAR</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for registro in datos%}
+            <tr>
+                <td>{{ registro.monitoria }}</td>
+                <td>{{ registro.actividad }}</td>
+                <td>{{ registro.observaciones }}</td>
+                <td>{{ registro.fecha }}</td>
+                <td>
+                    <a class="btn btn-warning" href="{% url 'territorio:crear_actividad' %}"> editar</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" href="{% url 'territorio:eliminar_actividad' registro.id %}"> eliminar</a>
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% else %}
+    <h1>No hay datos</h1>
+{% endif %}
+{% endblock  %}

@@ -1,0 +1,84 @@
+{% extends 'territorio/base.html' %}
+
+
+{% block body %}
+
+<h1>APRENDICES</h1>
+
+<a class="btn btn-primary" href="{% url 'territorio:crear_aprendiz' %}">Nuevo aprendiz</a> <br /><br />
+
+<input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" id="dato" name="dato" value="{{ dato_buscado }}" onkeyup="buscarAprendices('{% url 'territorio:aprendicesBuscar' %}');">
+{% csrf_token %}
+
+<br/>
+{% if dato_buscado %}
+    <a href="{% url 'territorio:aprendices' %}">Ver todos</a>
+    <br/>
+{% endif %}
+
+<div id="respuesta">
+
+{% if page_obj %}
+
+
+<nav aria-label="...">
+    <ul class="pagination">
+        <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+            <a class="page-link" {% if page_obj.has_previous %} href="?page={{ page_obj.previous_page_number }}" {% endif %}>Anterior</a>            
+        </li>
+
+        {% for i in "x"|rjust:page_obj.paginator.num_pages|make_list %}
+            <li class="page-item {% if forloop.counter == page_obj.number %}active{% endif %}" aria-current="page">
+                <a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+            </li>
+        {% endfor %}
+
+        <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+            <a class="page-link" {% if page_obj.has_next %}href="?page={{ page_obj.next_page_number }}"{% endif %}>Siguiente</a>
+        </li>
+    </ul>
+</nav>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>CEDULA</td>
+            <td>NOMBRE</td>
+            <td>APELLIDO</td>
+            <td>EDITAR</td>
+            <td>ELIMINAR</td>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for registro in page_obj %}
+        <tr>
+            <td>{{ registro.id }}</td>
+            <td>{{ registro.cedula }}</td>
+            <td>{{ registro.nombre }}</td>
+            <td>{{ registro.apellido }}</td>
+            <td>
+                <a class="btn btn-warning" href="{% url 'territorio:aprendizFormularioEditar' registro.id %}">
+                    Editar</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" onclick="confirmarEliminar('{% url 'territorio:eliminar_aprendiz' registro.id %}');"> Eliminar</a>
+            </td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+Pág. {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+
+{% else %}
+<h1>No hay datos</h1>
+{% endif %}
+
+</div>
+
+{% endblock %}

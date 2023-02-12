@@ -1,0 +1,33 @@
+{% extends 'territorio/base.html' %}
+
+{% block body %}
+<h1>Perfil</h1>
+
+<div class="card mb-3" style="max-width: 840px;">
+    <div class="row g-0">
+        <div class="col-md-6">
+            <img src="{{ perfil.foto.url }}" class="img-fluid rounded-start" alt="{{ perfil.nombre }}">
+        </div>
+        <div class="col-md-6">
+            <div class="card-body">
+                <h5 class="card-title">{{ perfil.nombre }} {{ perfil.apellido }}</h5>
+                <p class="card-text">
+                    <form action="{% url 'territorio:actualizarPerfil' %}" method="post">
+                        {% csrf_token %}
+                        <label>Nombre: </label> <input type="text" name="nombre" class="form-control" value="{{ perfil.nombre }}">
+                        <label>Apellido: </label> <input type="text" name="apellido" class="form-control" value="{{ perfil.apellido }}">
+                        <label>Correo:</label> <input type="email" name="correo" class="form-control" value="{{ perfil.correo }}">
+                        <label>Usuario: </label> <input type="text" name="usuario" class="form-control" value="{{ perfil.usuario }}">
+                        <label>Clave: </label><br>
+                        <small class="text-muted">Dejar en blanco para mantener...</small>
+                        <input type="password" name="password" class="form-control" >
+                        
+                        <br>
+                        <button class="btn btn-success" type="submit">Actualizar</button>
+                    </form>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

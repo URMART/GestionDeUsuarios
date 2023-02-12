@@ -1,0 +1,26 @@
+
+{% extends 'territorio/base.html' %}
+
+{% block body %}
+
+<h1>CREAR APRENDIZ</h1>
+
+<form style="text-align:center;" action="{% url 'territorio:guardar_aprendiz' %}" method="post">
+    {% csrf_token %}
+
+    <label for="">Cedula</label><br />
+    <input type="number" class="form-control" name="cedula" style="width:70%; margin-left: auto; margin-right:auto;"><br/>
+
+    <label for="">Nombre</label><br />
+    <input type="text" class="form-control" name="nombre" style="width:70%; margin-left: auto; margin-right:auto;"><br/>
+
+    <label for="">Apellido</label><br />
+    <input type="text" class="form-control" name="apellido" style="width:70%; margin-left: auto; margin-right:auto;"><br/>
+
+    <label for="">Fecha de nacimiento</label><br />
+    <input type="date" class="form-control" name="fecha_nacimiento" style="width:70%; margin-left: auto; margin-right:auto;"><br/>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% endblock  %}
+

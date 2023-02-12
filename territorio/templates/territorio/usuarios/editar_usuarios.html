@@ -1,0 +1,45 @@
+{% extends 'territorio/base.html' %}
+
+{% block body %}
+
+<h1>EDITAR USUARIO ( {{ datos.nombre }} )</h1>
+
+<form style="text-align:center;" action="{% url 'territorio:actualizarusuarios' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="hidden" name="id" value="{{ datos.id }}" /> 
+
+    <label for="">Nombre</label><br />
+    <input type="text" value="{{ datos.nombre }}" class="form-control" name="nombre" style="width:70%; margin-left: auto; margin-right:auto;"><br/>
+
+    <label for="">Apellido</label><br />
+    <input type="text" value="{{ datos.apellido }}" class="form-control" name="apellido" style="width:70%; margin-left: auto; margin-right:auto;"><br/>
+
+    <label for="">Correo</label><br />
+    <input type="email" value="{{ datos.correo }}" class="form-control" name="correo" style="width:70%; margin-left: auto; margin-right:auto;"><br/>
+
+    <label for="">Usuario</label><br />
+    <input type="text" value="{{ datos.usuario }}" class="form-control" name="usuario" style="width:70%; margin-left: auto; margin-right:auto;"><br/>
+
+    <label for="">Password</label><br />
+    Deje en blanco para mantener, o asigne uno nuevo.<br>
+    <input type="password" class="form-control" name="password" style="width:70%; margin-left: auto; margin-right:auto;" value=""><br/>
+
+    <label for="">Rol</label><br />
+    <select class="form-control" name="rol" style="width:70%; margin-left: auto; margin-right:auto;">
+        <option value="">Seleccione</option>
+        <option value="R" {% if datos.rol == 'R' %}selected=""{% endif %}>Administrador</option>
+        <option value="I" {% if datos.rol == 'I' %}selected=""{% endif %}>Instructor</option>
+        <option value="A" {% if datos.rol == 'A' %}selected=""{% endif %}>Aprendiz</option>
+        
+    </select><br/>
+    
+    <label for="">Foto</label><br />
+    
+    <span>Foto anterior:  {{ datos.foto }}</span><br/>
+    <input type="file" class="form-control" name="foto" style="width:70%; margin-left: auto; margin-right:auto;"><br/>
+
+    <button type="submit" class="btn btn-warning">Actualizar</button>
+</form>
+{% endblock  %}
+

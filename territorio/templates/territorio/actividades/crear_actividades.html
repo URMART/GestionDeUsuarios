@@ -1,0 +1,38 @@
+
+{% extends 'territorio/base.html' %}
+
+{% block body %}
+<h1>CREAR ACTIVIDAD</h1>
+
+<form style="text-align:center;" action="{% url 'territorio:guardar_actividad' %}" method="post">
+    {% csrf_token %}
+
+    <label for="">Actividad</label><br/>
+    <input type="text" class="form-control" name="actividad"><br/>
+    
+    <label for="">Monitoria</label><br />
+    <select class="form-control" name="monitoria">
+
+        {% if datos %}
+            
+            {% for registro in datos%}
+                
+                <option value="{{registro.id}}">{{registro.cat}}</option>
+                
+            {% endfor %}
+
+        {% else %}
+            <h1>No hay datos</h1>
+        {% endif %}
+    
+    </select><br/><br/>
+    
+    <label for="">Observaciones</label><br/>
+    <input type="text" class="form-control" name="observaciones"><br/>
+
+    <label for="">Fecha</label><br />
+    <input type="datetime-local" class="form-control" name="fecha"><br/>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% endblock  %}

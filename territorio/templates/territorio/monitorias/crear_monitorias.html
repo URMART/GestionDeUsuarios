@@ -1,0 +1,38 @@
+{% extends 'territorio/base.html' %}
+
+{% block body %}
+<h1>CREAR MONITORIA</h1>
+<form style="text-align:center;" action="{% url 'territorio:guardar_monitoria' %}" method="post">
+    {% csrf_token %}
+
+    <label for="">Categoria</label><br />
+    <input type="text" class="form-control" name="cat" style="width:70%; margin-left: auto; margin-right:auto;"><br/>
+
+    <label for="">Aprendiz</label><br />
+    
+    <select class="form-control" name="aprendiz" style="width:70%; margin-left: auto; margin-right:auto;">
+
+        {% if datos %}
+            
+            {% for registro in datos%}
+                
+                <option value="{{registro.id}}">{{registro.nombre}}</option>
+                
+            {% endfor %}
+
+        {% else %}
+            <h1>No hay datos</h1>
+        {% endif %}
+    
+    </select><br/>
+    
+    <label for="">Fecha inicial</label><br/>
+    <input type="datetime-local" class="form-control" name="fecha_inicio" style="width:70%; margin-left: auto; margin-right:auto;"><br/>
+
+    <label for="">Fecha final</label><br />
+    <input type="datetime-local" class="form-control" name="fecha_final" style="width:70%; margin-left: auto; margin-right:auto;"><br/>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+
+</form>
+{% endblock  %}

@@ -1,0 +1,44 @@
+
+{% extends 'territorio/base.html' %}
+
+{% block body %}
+<h1>MONITORIAS</h1>
+
+<a class="btn btn-primary" href="{% url 'territorio:crear_monitoria' %}">Nueva Monitoria</a><br/><br/>
+
+{% if datos %}
+    <table border="1" width="100%" class="table">
+        <thead>
+            <tr>
+                <td>cat</td>
+                <td>aprendiz</td>
+                <td>fecha_inicio</td>
+                <td>fecha_final</td>
+                <td>EDITAR</td>
+                <td>ELIMINAR</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for registro in datos%}
+            <tr>
+                <td>{{ registro.cat }}</td>
+                <td>{{ registro.aprendiz }}</td>
+                <td>{{ registro.fecha_inicio }}</td>
+                <td>{{ registro.fecha_final }}</td>
+                <td>
+                    <a class="btn btn-warning" href="{% url 'territorio:crear_monitoria' %}"> editar</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" href="{% url 'territorio:eliminar_monitoria' registro.id %}"> eliminar</a> 
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% else %}
+    <h1>No hay datos</h1>
+{% endif %}
+{% endblock  %}
